@@ -1,0 +1,145 @@
+classDiagram
+    direction TB
+
+    class HrmContext {
+        +DbSet~Employe~ Employes
+        +DbSet~Departement~ Departements
+        +DbSet~DemandeConge~ DemandesConge
+        +DbSet~FichePaie~ FichesPaie
+        +DbSet~Evaluation~ Evaluations
+        +DbSet~OffreEmploi~ OffresEmploi
+        +DbSet~Candidature~ Candidatures
+        +DbSet~Utilisateur~ Utilisateurs
+        #OnConfiguring(options)
+        #OnModelCreating(modele)
+    }
+    class DbContext {
+        <<EF Core>>
+    }
+    class InitialiseurBase {
+        +Initialiser()$
+    }
+
+    class ServiceBase {
+        <<abstract>>
+        #NouveauContexte() HrmContext
+        #Exiger(condition, message)$
+    }
+    class ServiceCrud~T~ {
+        <<abstract>>
+        #Requete(db) IQueryable~T~
+        +Lister() List~T~
+        +Obtenir(id) T
+        +Enregistrer(entite)
+        +Supprimer(id)
+        #Valider(entite, db)
+        #AvantSuppression(entite, db)
+    }
+    class ServiceEmployes {
+        +Rechercher(texte, departementId, actifs) List~Employe~
+        +ProchainMatricule() string
+    }
+    class ServiceDepartements
+    class ServiceConges {
+        +Lister(statut) List~DemandeConge~
+        +Approuver(id, commentaire)
+        +Refuser(id, commentaire)
+        +JoursSansSolde(db, employeId, debut, fin)$ int
+    }
+    class ServicePaie {
+        +TauxCotisations$ decimal
+        +TauxImpot$ decimal
+        +Calculer(employe, mois, annee, primes, hs, jours)$ FichePaie
+        +Generer(employeId, mois, annee, primes, hs) FichePaie
+        +GenererPourTous(mois, annee) int
+    }
+    class ServiceEvaluations {
+        +Lister(employeId) List~Evaluation~
+    }
+    class ServiceOffres
+    class ServiceCandidatures {
+        +ListerParOffre(offreId) List~Candidature~
+        +ChangerStatut(id, statut)
+        +Embaucher(id, poste, salaire, date) Employe
+    }
+    class ServiceAuthentification {
+        +Connecter(login, motDePasse) Utilisateur
+        +CreerCompte(...)$ Utilisateur
+        +Hacher(motDePasse, sel)$ string
+    }
+    class ServiceTableauDeBord {
+        +Calculer() Indicateurs
+    }
+    class RegleMetierException
+    class IEntite {
+        <<interface>>
+        +int Id
+    }
+
+    class ModuleBase {
+        <<abstract>>
+        #DataGridView Grille
+        #FlowLayoutPanel BarreOutils
+        +Rafraichir()*
+        #AjouterBouton(texte, couleur, action)
+        #Afficher(lignes)
+        #Executer(action)
+        #OuvrirDialogue(form)
+    }
+    class FormEditionBase {
+        <<abstract>>
+        #AjouterChamp(libelle, controle) T
+        #Enregistrer()*
+    }
+    class FormPrincipal {
+        -Dictionary modules
+        -Afficher(cle, fabrique, bouton)
+    }
+    class FormConnexion {
+        +Utilisateur UtilisateurConnecte
+    }
+    class UserControl {
+        <<WinForms>>
+    }
+    class Form {
+        <<WinForms>>
+    }
+
+    DbContext <|-- HrmContext
+    InitialiseurBase ..> HrmContext
+    ServiceBase ..> HrmContext : crée
+    ServiceBase <|-- ServiceCrud~T~
+    ServiceBase <|-- ServiceTableauDeBord
+    ServiceCrud~T~ <|-- ServiceEmployes
+    ServiceCrud~T~ <|-- ServiceDepartements
+    ServiceCrud~T~ <|-- ServiceConges
+    ServiceCrud~T~ <|-- ServicePaie
+    ServiceCrud~T~ <|-- ServiceEvaluations
+    ServiceCrud~T~ <|-- ServiceOffres
+    ServiceCrud~T~ <|-- ServiceCandidatures
+    ServiceCrud~T~ <|-- ServiceAuthentification
+    ServiceBase ..> RegleMetierException : lève
+    ServiceCrud~T~ ..> IEntite : T implémente
+
+    UserControl <|-- ModuleBase
+    Form <|-- FormEditionBase
+    Form <|-- FormPrincipal
+    Form <|-- FormConnexion
+    ModuleBase <|-- TableauDeBordControl
+    ModuleBase <|-- EmployesControl
+    ModuleBase <|-- DepartementsControl
+    ModuleBase <|-- CongesControl
+    ModuleBase <|-- PaieControl
+    ModuleBase <|-- EvaluationsControl
+    ModuleBase <|-- RecrutementControl
+    ModuleBase <|-- UtilisateursControl
+    FormEditionBase <|-- FormEmploye
+    FormEditionBase <|-- FormDemandeConge
+    FormEditionBase <|-- FormGenererPaie
+    FormEditionBase <|-- FormEvaluation
+    FormEditionBase <|-- FormOffre
+    FormEditionBase <|-- FormCandidature
+    FormEditionBase <|-- FormEmbauche
+    FormPrincipal o-- ModuleBase : affiche
+    ModuleBase ..> ServiceBase : utilise
+    FormEditionBase ..> ServiceBase : utilise

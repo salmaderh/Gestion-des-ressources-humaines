@@ -1,0 +1,137 @@
+classDiagram
+    direction TB
+
+    class Departement {
+        +int Id
+        +string Nom
+        +string Description
+    }
+    class Employe {
+        +int Id
+        +string Matricule
+        +string Nom
+        +string Prenom
+        +string Email
+        +string Telephone
+        +string Poste
+        +DateTime DateEmbauche
+        +decimal SalaireBase
+        +double SoldeConges
+        +StatutEmploye Statut
+        +NomComplet() string
+    }
+    class DemandeConge {
+        +int Id
+        +TypeConge Type
+        +DateTime DateDebut
+        +DateTime DateFin
+        +string Motif
+        +StatutDemande Statut
+        +DateTime DateDemande
+        +string CommentaireDecision
+        +NombreJours() int
+        +CompterJoursOuvres(debut, fin)$ int
+    }
+    class FichePaie {
+        +int Id
+        +int Mois
+        +int Annee
+        +decimal SalaireBase
+        +decimal Primes
+        +decimal HeuresSupplementaires
+        +int JoursSansSolde
+        +decimal RetenueAbsences
+        +decimal SalaireBrut
+        +decimal CotisationsSociales
+        +decimal ImpotRevenu
+        +decimal SalaireNet
+        +Periode() string
+    }
+    class Evaluation {
+        +int Id
+        +string Periode
+        +DateTime DateEvaluation
+        +string Evaluateur
+        +int NoteCompetences
+        +int NoteObjectifs
+        +int NoteComportement
+        +string ObjectifsSuivants
+        +string Commentaire
+        +NoteGlobale() double
+        +Appreciation() string
+    }
+    class OffreEmploi {
+        +int Id
+        +string Titre
+        +string Description
+        +string TypeContrat
+        +DateTime DatePublication
+        +DateTime DateLimite
+        +StatutOffre Statut
+    }
+    class Candidature {
+        +int Id
+        +string Nom
+        +string Prenom
+        +string Email
+        +DateTime DateCandidature
+        +StatutCandidature Statut
+        +int? NoteEntretien
+        +string Commentaire
+    }
+    class Utilisateur {
+        +int Id
+        +string NomUtilisateur
+        +string NomAffiche
+        +string MotDePasseHash
+        +string Sel
+        +RoleUtilisateur Role
+        +EstAdministrateur() bool
+    }
+
+    class TypeConge {
+        <<enumeration>>
+        Annuel
+        Maladie
+        Maternite
+        SansSolde
+        Exceptionnel
+    }
+    class StatutDemande {
+        <<enumeration>>
+        EnAttente
+        Approuvee
+        Refusee
+    }
+    class StatutCandidature {
+        <<enumeration>>
+        Recue
+        Entretien
+        Acceptee
+        Refusee
+        Embauchee
+    }
+    class StatutOffre {
+        <<enumeration>>
+        Ouverte
+        Fermee
+        Pourvue
+    }
+    class RoleUtilisateur {
+        <<enumeration>>
+        Administrateur
+        GestionnaireRH
+    }
+
+    Departement "0..1" -- "0..*" Employe : emploie
+    Employe "1" *-- "0..*" DemandeConge : demande
+    Employe "1" *-- "0..*" FichePaie : est payé
+    Employe "1" *-- "0..*" Evaluation : est évalué
+    Departement "0..1" -- "0..*" OffreEmploi : publie
+    OffreEmploi "1" *-- "0..*" Candidature : reçoit
+
+
+    DemandeConge ..> TypeConge
+    Candidature ..> StatutCandidature
+    OffreEmploi ..> StatutOffre
+    Utilisateur ..> RoleUtilisateur
