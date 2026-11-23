@@ -1,0 +1,9 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+# fichiers temporaires de SQLite (la base gestion_rh.db, elle, est versionnée)
+*.db-shm
+*.db-wal

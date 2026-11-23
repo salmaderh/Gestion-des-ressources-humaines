@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Vues\Commun\FormEditionBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Commun\ModuleBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormBulletin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormCandidature.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormDemandeConge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormDepartement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormEmbauche.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormEmploye.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormEvaluation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormGenererPaie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormOffre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormSaisieTexte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Dialogues\FormUtilisateur.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\FormConnexion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\CongesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\DepartementsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\EmployesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\EvaluationsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\PaieControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\RecrutementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\TableauDeBordControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vues\Modules\UtilisateursControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
